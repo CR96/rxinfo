@@ -1,2 +1,2 @@
-# ndc-android
+# RxInfo
 National Drug Code visual lookup
