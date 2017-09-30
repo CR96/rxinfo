@@ -13,7 +13,9 @@
 
     <string name="input_separator">or</string>
 
-    <string name="input_picture">Take a picture</string>
+    <string name="input_picture">Scan a barcode</string>
     <string name="input_picture_desc">The app will request permission to access your camera.</string>
 
+    <!-- Permissions -->
+    <string name="permission_camery_denied">You\'ve denied camera access. You can change this in the settings for this app.</string>
 </resources>
