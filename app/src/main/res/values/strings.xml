@@ -10,7 +10,7 @@
     <string name="list_empty">When you add a medication, it will show up here.</string>
 
     <string name="input_ndc">Enter ten-digit NDC</string>
-    <string name="input_ndc_desc">The NDC can be found on your medication\'s barcode. Do not enter spaces.</string>
+    <string name="input_ndc_desc">Don\'t enter the dashes.</string>
 
     <string name="input_separator">or</string>
 

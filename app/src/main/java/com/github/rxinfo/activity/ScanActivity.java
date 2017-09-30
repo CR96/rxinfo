@@ -96,19 +96,19 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     /**
-     * Remove the first and last digit from the barcode, and format with dashes.
+     * Remove the first and last digit from the barcode, if needed.
      * @param rawValue The value read from the barcode
      */
     private String correctNdc(String rawValue) {
         try {
-            String fixedValue = rawValue.substring(1, rawValue.length() - 1)
-                    .substring(0, rawValue.length() - 2); // Remove first and last digit
-
-            fixedValue = fixedValue.substring(0, 4) + "-" +
-                    rawValue.substring(5, 9) + "-" + rawValue.substring(9, 11); // Format with dashes
-            return fixedValue;
+            if (rawValue.length() > 10) { // Contains system character and/or check digit
+                return rawValue.substring(1, rawValue.length() - 1)
+                        .substring(0, rawValue.length() - 2); // Remove first and last digit
+            }else{
+                return rawValue;
+            }
         }catch (IndexOutOfBoundsException e) {
-            // Just leave it as is
+            // Something's weird with this barcode, just leave it as is
             return rawValue;
         }
     }
