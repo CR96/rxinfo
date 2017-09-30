@@ -25,7 +25,7 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        setTitle("Scan a barcode");
+        setTitle(getString(R.string.scan_activity_name));
 
         final SurfaceView cameraPreview = findViewById(R.id.cameraPreview);
         final TextView txtBarcode = findViewById(R.id.txtBarcode);

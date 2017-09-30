@@ -4,6 +4,7 @@
 
     <!-- Activity Names -->
     <string name="input_activity_name">Add a medication</string>
+    <string name="scan_activity_name">Scan a barcode</string>
 
     <!-- UI Labels -->
     <string name="list_empty">When you add a medication, it will show up here.</string>
