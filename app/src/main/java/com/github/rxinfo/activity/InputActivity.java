@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.rxinfo.R;
-import com.github.rxinfo.util.NdcUtils;
 
 public class InputActivity extends AppCompatActivity {
 
@@ -78,12 +77,13 @@ public class InputActivity extends AppCompatActivity {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] possibleNdcs = NdcUtils.getPossibleNdcs(txtNdc.getText().toString());
-                Intent resultIntent = new Intent(
-                        InputActivity.this,
-                        ResultActivity.class);
-                resultIntent.putExtra("possibleNdcs", possibleNdcs);
-                startActivity(resultIntent);
+                // Return result to MainActivity
+                Bundle data = new Bundle();
+                data.putString("ndc", txtNdc.getText().toString());
+                Intent intent = new Intent();
+                intent.putExtras(data);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -91,12 +91,11 @@ public class InputActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_BARCODE_TEXT && resultCode == Activity.RESULT_OK) {
-            String[] possibleNdcs = NdcUtils.getPossibleNdcs(data.getStringExtra("ndc"));
-            Intent resultIntent = new Intent(
-                    InputActivity.this,
-                    ResultActivity.class);
-            resultIntent.putExtra("possibleNdcs", possibleNdcs);
-            startActivity(resultIntent);
+            // Return result to MainActivity
+            Intent intent = new Intent();
+            intent.putExtras(data);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

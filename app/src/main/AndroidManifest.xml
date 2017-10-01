@@ -36,7 +36,6 @@
         <activity
             android:name=".activity.ScanActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ResultActivity"></activity>
     </application>
 
 </manifest>
