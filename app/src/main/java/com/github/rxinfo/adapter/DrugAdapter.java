@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.rxinfo.R;
 import com.github.rxinfo.model.Drug;
@@ -49,31 +50,36 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
         LinearLayout layout = holder.mLinearLayout;
         TextView txt_name = layout.findViewById(R.id.txt_name);
 
-        final String brandName = mDrugs.get(position).results.get(0).openfda.brandName.toString()
-            .replaceAll("\\[", "")
-            .replaceAll("]", "");
+        try {
+            final String brandName = mDrugs.get(position).results.get(0).openfda.brandName.toString()
+                    .replaceAll("\\[", "")
+                    .replaceAll("]", "");
 
-        final String genericName = mDrugs.get(holder.getAdapterPosition()).results.get(0).openfda.genericName.toString()
-                .replaceAll("\\[", "")
-                .replaceAll("]", "");
+            final String genericName = mDrugs.get(holder.getAdapterPosition()).results.get(0).openfda.genericName.toString()
+                    .replaceAll("\\[", "")
+                    .replaceAll("]", "");
 
-        final String warnings = mDrugs.get(holder.getAdapterPosition()).results.get(0).warnings.toString()
-                .replaceAll("\\[", "")
-                .replaceAll("]", "");
+            final String warnings = mDrugs.get(holder.getAdapterPosition()).results.get(0).warnings.toString()
+                    .replaceAll("\\[", "")
+                    .replaceAll("]", "");
 
-        txt_name.setText(brandName);
+            txt_name.setText(brandName);
 
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle(brandName);
-                builder.setMessage(genericName + "\n\n" + warnings);
-                builder.setCancelable(true);
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle(brandName);
+                    builder.setMessage(genericName + "\n\n" + warnings);
+                    builder.setCancelable(true);
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+
+        }catch (NullPointerException e) {
+            // Prevent a crash due to incomplete data
+        }
     }
 
     @Override

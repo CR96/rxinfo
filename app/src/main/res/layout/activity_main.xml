@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
+        android:contentDescription="@string/add_medication"
         android:clickable="true"
         android:src="@drawable/ic_add_white_24dp"
         app:fabSize="normal"

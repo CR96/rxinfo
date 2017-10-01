@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="?android:attr/selectableItemBackground"
-    android:gravity="center">
+    android:gravity="center_vertical">
 
     <ImageView
         android:layout_width="wrap_content"

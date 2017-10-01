@@ -27,4 +27,7 @@
 
     <!-- Permissions -->
     <string name="permission_camera_denied">You\'ve denied permissions needed for scanning. You can change this in the settings for this app.</string>
+
+    <!-- Accessibility -->
+    <string name="add_medication">Add a medication</string>
 </resources>
