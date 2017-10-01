@@ -18,14 +18,13 @@ import android.widget.Toast;
 
 import com.github.rxinfo.R;
 
-import java.util.Arrays;
-
 import util.NdcUtils;
 
 public class InputActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CAMERA = 1;
     private static final int REQUEST_BARCODE_TEXT = 1;
+    private static final int REQUEST_SAVE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,11 @@ public class InputActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String[] possibleNdcs = NdcUtils.getPossibleNdcs(txtNdc.getText().toString());
-                Toast.makeText(InputActivity.this, Arrays.toString(possibleNdcs), Toast.LENGTH_LONG).show();
+                Intent resultIntent = new Intent(
+                        InputActivity.this,
+                        ResultActivity.class);
+                resultIntent.putExtra("possibleNdcs", possibleNdcs);
+                startActivityForResult(resultIntent, REQUEST_SAVE);
             }
         });
     }
@@ -91,7 +94,11 @@ public class InputActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_BARCODE_TEXT && resultCode == Activity.RESULT_OK) {
             String[] possibleNdcs = NdcUtils.getPossibleNdcs(data.getStringExtra("ndc"));
-            Toast.makeText(InputActivity.this, Arrays.toString(possibleNdcs), Toast.LENGTH_LONG).show();
+            Intent resultIntent = new Intent(
+                    InputActivity.this,
+                    ResultActivity.class);
+            resultIntent.putExtra("possibleNdcs", possibleNdcs);
+            startActivityForResult(resultIntent, REQUEST_SAVE);
         }
     }
 
@@ -108,7 +115,6 @@ public class InputActivity extends AppCompatActivity {
                     Intent scanBarcodeIntent = new Intent(
                             InputActivity.this,
                             ScanActivity.class);
-
                     startActivityForResult(scanBarcodeIntent, REQUEST_BARCODE_TEXT);
                 } else {
                     Toast.makeText(
