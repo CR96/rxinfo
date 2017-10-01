@@ -27,7 +27,7 @@ public class InputActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.input_activity_name));
 
-        Button btnCamera = findViewById(R.id.btnCamera);
+        Button btnCamera = findViewById(R.id.btn_camera);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +38,7 @@ public class InputActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(InputActivity.this,
                             new String[]{Manifest.permission.CAMERA},
                             PERMISSION_REQUEST_CAMERA);
-                }else{
+                } else {
                     Intent scanBarcodeIntent = new Intent(
                             InputActivity.this,
                             ScanActivity.class);

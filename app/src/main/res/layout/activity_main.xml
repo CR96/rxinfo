@@ -9,6 +9,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/lst_meds"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -23,7 +24,7 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnAdd"
+        android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -35,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_empty"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

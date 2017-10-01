@@ -10,7 +10,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <SurfaceView
-        android:id="@+id/cameraPreview"
+        android:id="@+id/view_camera"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="64dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtBarcode"
+        android:id="@+id/txt_barcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -30,10 +30,10 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraPreview" />
+        app:layout_constraintTop_toBottomOf="@+id/view_camera" />
 
     <Button
-        android:id="@+id/btnGo"
+        android:id="@+id/btn_go"
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,5 +44,5 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraPreview" />
+        app:layout_constraintTop_toBottomOf="@+id/view_camera" />
 </android.support.constraint.ConstraintLayout>

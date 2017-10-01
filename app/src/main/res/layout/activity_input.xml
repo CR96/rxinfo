@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <Button
-        android:id="@+id/btnCamera"
+        android:id="@+id/btn_camera"
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,26 +21,26 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <TextView
-        android:id="@+id/txtCameraDesc"
+        android:id="@+id/txt_camera_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/input_picture_desc"
         android:gravity="center"
+        android:text="@string/input_picture_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_camera" />
 
     <TextView
-        android:id="@+id/txtSeparator"
+        android:id="@+id/txt_separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/input_separator"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <EditText
-        android:id="@+id/txtNdc"
+        android:id="@+id/txt_ndc"
         style="@android:style/Widget.Material.EditText"
         android:layout_width="164dp"
         android:layout_height="48dp"
@@ -57,9 +57,9 @@
         android:ems="10"
         android:hint="@string/input_ndc"
         android:inputType="number"
+        android:maxLength="10"
         android:selectAllOnFocus="false"
         android:singleLine="true"
-        android:maxLength="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <TextView
-        android:id="@+id/txtNdcDesc"
+        android:id="@+id/txt_ndc_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -77,6 +77,6 @@
         android:text="@string/input_ndc_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNdc" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_ndc" />
 
 </android.support.constraint.ConstraintLayout>

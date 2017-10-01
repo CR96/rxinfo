@@ -1,8 +1,8 @@
 package com.github.rxinfo.activity;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,9 +27,9 @@ public class ScanActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.scan_activity_name));
 
-        final SurfaceView cameraPreview = findViewById(R.id.cameraPreview);
-        final TextView txtBarcode = findViewById(R.id.txtBarcode);
-        final Button btnGo = findViewById(R.id.btnGo);
+        final SurfaceView cameraPreview = findViewById(R.id.view_camera);
+        final TextView txtBarcode = findViewById(R.id.txt_barcode);
+        final Button btnGo = findViewById(R.id.btn_go);
 
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
@@ -79,7 +79,7 @@ public class ScanActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             String ndc = correctNdc(barcode.rawValue);
-                            String text =  String.format(
+                            String text = String.format(
                                     getString(R.string.scanner_barcode_detected),
                                     ndc
                             );
@@ -97,17 +97,18 @@ public class ScanActivity extends AppCompatActivity {
 
     /**
      * Remove the first and last digit from the barcode, if needed.
+     *
      * @param rawValue The value read from the barcode
      */
     private String correctNdc(String rawValue) {
         try {
-            if (rawValue.length() > 10) { // Contains system character and/or check digit
+            if (rawValue.length() > 10) { // Contains system character and check digit
                 return rawValue.substring(1, rawValue.length() - 1)
                         .substring(0, rawValue.length() - 2); // Remove first and last digit
-            }else{
+            } else {
                 return rawValue;
             }
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // Something's weird with this barcode, just leave it as is
             return rawValue;
         }
