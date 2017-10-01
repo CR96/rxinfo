@@ -1,6 +1,7 @@
 package com.github.rxinfo.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
@@ -18,7 +19,11 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+import util.NdcUtils;
+
 public class ScanActivity extends AppCompatActivity {
+
+    private static String ndc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +79,11 @@ public class ScanActivity extends AppCompatActivity {
                 SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if (barcodes.size() > 0) {
-                    final Barcode barcode = barcodes.valueAt(0); // Get the first one
+                    Barcode barcode = barcodes.valueAt(0); // Get the first one
+                    ndc = NdcUtils.upcToNdc(barcode.rawValue);
                     txtBarcode.post(new Runnable() {
                         @Override
                         public void run() {
-                            String ndc = correctNdc(barcode.rawValue);
                             String text = String.format(
                                     getString(R.string.scanner_barcode_detected),
                                     ndc
@@ -86,31 +91,23 @@ public class ScanActivity extends AppCompatActivity {
 
                             txtBarcode.setText(text);
                             btnGo.setVisibility(View.VISIBLE);
-
                         }
                     });
                 }
             }
         });
 
-    }
-
-    /**
-     * Remove the first and last digit from the barcode, if needed.
-     *
-     * @param rawValue The value read from the barcode
-     */
-    private String correctNdc(String rawValue) {
-        try {
-            if (rawValue.length() > 10) { // Contains system character and check digit
-                return rawValue.substring(1, rawValue.length() - 1)
-                        .substring(0, rawValue.length() - 2); // Remove first and last digit
-            } else {
-                return rawValue;
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Return result
+                Bundle data = new Bundle();
+                data.putString("ndc", ndc);
+                Intent intent = new Intent();
+                intent.putExtras(data);
+                setResult(RESULT_OK, intent);
+                finish();
             }
-        } catch (IndexOutOfBoundsException e) {
-            // Something's weird with this barcode, just leave it as is
-            return rawValue;
-        }
+        });
     }
 }

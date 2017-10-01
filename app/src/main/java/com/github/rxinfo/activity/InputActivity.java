@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import com.github.rxinfo.R;
 
+import java.util.Arrays;
+
+import util.NdcUtils;
+
 public class InputActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CAMERA = 1;
@@ -52,7 +56,8 @@ public class InputActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_BARCODE_TEXT && resultCode == Activity.RESULT_OK) {
-
+            String[] possibleNdcs = NdcUtils.getPossibleNdcs(data.getStringExtra("ndc"));
+            Toast.makeText(InputActivity.this, Arrays.toString(possibleNdcs), Toast.LENGTH_LONG).show();
         }
     }
 
