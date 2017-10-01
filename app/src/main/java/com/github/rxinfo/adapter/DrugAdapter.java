@@ -2,6 +2,7 @@ package com.github.rxinfo.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,14 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
                     builder.setTitle(brandName);
                     builder.setMessage(genericName + "\n\n" + warnings);
                     builder.setCancelable(true);
+                    builder.setPositiveButton(mContext.getString(android.R.string.ok),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
