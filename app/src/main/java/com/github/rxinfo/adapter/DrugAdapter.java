@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
 
-    private Context mContext;
-    private ArrayList<Drug> mDrugs;
+    final private Context mContext;
+    final private ArrayList<Drug> mDrugs;
 
     public DrugAdapter(
             Context context,

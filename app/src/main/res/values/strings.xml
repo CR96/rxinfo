@@ -5,7 +5,6 @@
     <!-- Activity Names -->
     <string name="input_activity_name">Add a medication</string>
     <string name="scan_activity_name">Scan a barcode</string>
-    <string name="result_activity_name">Results</string>
 
     <!-- UI Labels -->
     <string name="list_empty">When you add a medication, it will show up here.</string>
@@ -22,7 +21,6 @@
     <string name="scanner_barcode_detected">NDC: %1$s</string>
 
     <string name="result_not_found">No results.</string>
-    <string name="back">Go back</string>
     <string name="go">Get Info</string>
 
     <!-- Permissions -->

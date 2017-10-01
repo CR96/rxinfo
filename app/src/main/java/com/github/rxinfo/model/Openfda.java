@@ -26,7 +26,7 @@ public class Openfda implements Serializable {
     public List<String> splSetId = null;
     @SerializedName("brand_name")
     @Expose
-    public List<String> brandName = null;
+    final public List<String> brandName = null;
     @SerializedName("manufacturer_name")
     @Expose
     public List<String> manufacturerName = null;

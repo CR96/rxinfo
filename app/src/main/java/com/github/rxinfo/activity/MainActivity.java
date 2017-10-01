@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_DRUG_ITEM = 1;
 
-    ArrayList<Drug> drugs = new ArrayList<>();
-    DrugAdapter drugAdapter;
+    private final ArrayList<Drug> drugs = new ArrayList<>();
+    private DrugAdapter drugAdapter;
 
-    TextView txtEmpty;
-    ProgressBar progress;
+    private TextView txtEmpty;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,6 +14,6 @@ public class Drug implements Serializable {
     public Meta meta;
     @SerializedName("results")
     @Expose
-    public List<Result> results = null;
+    final public List<Result> results = null;
 
 }

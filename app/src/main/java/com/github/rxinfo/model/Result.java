@@ -50,7 +50,7 @@ public class Result implements Serializable {
     public List<String> inactiveIngredient = null;
     @SerializedName("warnings")
     @Expose
-    public List<String> warnings = null;
+    final public List<String> warnings = null;
     @SerializedName("spl_product_data_elements")
     @Expose
     public List<String> splProductDataElements = null;
