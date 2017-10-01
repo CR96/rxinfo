@@ -1,5 +1,6 @@
 package com.github.rxinfo.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,13 +45,35 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         LinearLayout layout = holder.mLinearLayout;
         TextView txt_name = layout.findViewById(R.id.txt_name);
-        TextView txt_desc = layout.findViewById(R.id.txt_desc);
 
-        txt_name.setText(mDrugs.get(position).results.get(0).openfda.brandName.toString());
-        txt_desc.setText(mDrugs.get(position).results.get(0).openfda.genericName.toString());
+        final String brandName = mDrugs.get(position).results.get(0).openfda.brandName.toString()
+            .replaceAll("\\[", "")
+            .replaceAll("]", "");
+
+        final String genericName = mDrugs.get(holder.getAdapterPosition()).results.get(0).openfda.genericName.toString()
+                .replaceAll("\\[", "")
+                .replaceAll("]", "");
+
+        final String warnings = mDrugs.get(holder.getAdapterPosition()).results.get(0).warnings.toString()
+                .replaceAll("\\[", "")
+                .replaceAll("]", "");
+
+        txt_name.setText(brandName);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle(brandName);
+                builder.setMessage(genericName + "\n\n" + warnings);
+                builder.setCancelable(true);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 
     @Override
