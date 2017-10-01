@@ -1,14 +1,14 @@
-
 package com.github.rxinfo.model;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result implements Serializable
-{
+import java.io.Serializable;
+import java.util.List;
 
+public class Result implements Serializable {
+
+    private final static long serialVersionUID = 3637843897525237742L;
     @SerializedName("effective_time")
     @Expose
     public String effectiveTime;
@@ -78,6 +78,5 @@ public class Result implements Serializable
     @SerializedName("package_label_principal_display_panel")
     @Expose
     public List<String> packageLabelPrincipalDisplayPanel = null;
-    private final static long serialVersionUID = 3637843897525237742L;
 
 }

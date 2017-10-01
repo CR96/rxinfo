@@ -1,14 +1,14 @@
-
 package com.github.rxinfo.model;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Openfda implements Serializable
-{
+import java.io.Serializable;
+import java.util.List;
 
+public class Openfda implements Serializable {
+
+    private final static long serialVersionUID = -2382154789844175251L;
     @SerializedName("product_ndc")
     @Expose
     public List<String> productNdc = null;
@@ -51,6 +51,5 @@ public class Openfda implements Serializable
     @SerializedName("application_number")
     @Expose
     public List<String> applicationNumber = null;
-    private final static long serialVersionUID = -2382154789844175251L;
 
 }

@@ -1,13 +1,13 @@
-
 package com.github.rxinfo.model;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meta implements Serializable
-{
+import java.io.Serializable;
 
+public class Meta implements Serializable {
+
+    private final static long serialVersionUID = -6888293659039718597L;
     @SerializedName("disclaimer")
     @Expose
     public String disclaimer;
@@ -23,6 +23,5 @@ public class Meta implements Serializable
     @SerializedName("results")
     @Expose
     public Results results;
-    private final static long serialVersionUID = -6888293659039718597L;
 
 }

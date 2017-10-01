@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.rxinfo.R;
 import com.github.rxinfo.model.Drug;
+
 import java.util.ArrayList;
 
 /**
@@ -23,14 +23,6 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<Drug> mDrugs;
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        final LinearLayout mLinearLayout;
-        ViewHolder(LinearLayout v) {
-            super(v);
-            mLinearLayout = v;
-        }
-    }
 
     public DrugAdapter(
             Context context,
@@ -86,7 +78,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
                 }
             });
 
-        }catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             // Prevent a crash due to incomplete data
         }
     }
@@ -94,5 +86,14 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDrugs.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        final LinearLayout mLinearLayout;
+
+        ViewHolder(LinearLayout v) {
+            super(v);
+            mLinearLayout = v;
+        }
     }
 }

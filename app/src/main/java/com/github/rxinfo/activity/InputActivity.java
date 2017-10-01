@@ -68,7 +68,7 @@ public class InputActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() != 10) {
                     btnGo.setEnabled(false);
-                }else{
+                } else {
                     btnGo.setEnabled(true);
                 }
             }

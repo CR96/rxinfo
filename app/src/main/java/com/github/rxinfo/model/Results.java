@@ -1,13 +1,13 @@
-
 package com.github.rxinfo.model;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Results implements Serializable
-{
+import java.io.Serializable;
 
+public class Results implements Serializable {
+
+    private final static long serialVersionUID = -9030953540103656458L;
     @SerializedName("skip")
     @Expose
     public Integer skip;
@@ -17,6 +17,5 @@ public class Results implements Serializable
     @SerializedName("total")
     @Expose
     public Integer total;
-    private final static long serialVersionUID = -9030953540103656458L;
 
 }

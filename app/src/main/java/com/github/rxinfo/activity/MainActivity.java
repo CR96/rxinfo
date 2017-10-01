@@ -102,17 +102,17 @@ public class MainActivity extends AppCompatActivity {
                 url,
                 null,
                 new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Gson gson = new GsonBuilder()
-                            .create();
-                    Drug drug = gson
-                            .fromJson(response.toString(), Drug.class);
-                    drugs.add(drug);
-                    drugAdapter.notifyDataSetChanged();
-                    progress.setVisibility(View.GONE);
-                }
-            }, new Response.ErrorListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Gson gson = new GsonBuilder()
+                                .create();
+                        Drug drug = gson
+                                .fromJson(response.toString(), Drug.class);
+                        drugs.add(drug);
+                        drugAdapter.notifyDataSetChanged();
+                        progress.setVisibility(View.GONE);
+                    }
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                             MainActivity.this,
                             getString(R.string.result_not_found),
                             Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     possibleNdcs.remove(0);
                     getDrugInfo(possibleNdcs);
                 }
@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         String json = sharedPrefs.getString("savedMeds", null);
-        Type type = new TypeToken<ArrayList<Drug>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Drug>>() {
+        }.getType();
         return gson.fromJson(json, type);
     }
 }
