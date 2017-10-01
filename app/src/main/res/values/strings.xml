@@ -30,4 +30,5 @@
 
     <!-- Accessibility -->
     <string name="add_medication">Add a medication</string>
+    <string name="medication">Medication</string>
 </resources>
