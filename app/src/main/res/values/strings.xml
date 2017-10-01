@@ -21,6 +21,8 @@
     <string name="scan_no_barcode_detected">No barcode detected</string>
     <string name="scanner_barcode_detected">NDC: %1$s</string>
 
+    <string name="result_not_found">No results.</string>
+    <string name="back">Go back</string>
     <string name="go">Get Info</string>
 
     <!-- Permissions -->

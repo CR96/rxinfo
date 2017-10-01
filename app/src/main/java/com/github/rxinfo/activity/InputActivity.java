@@ -17,14 +17,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.rxinfo.R;
-
-import util.NdcUtils;
+import com.github.rxinfo.util.NdcUtils;
 
 public class InputActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CAMERA = 1;
     private static final int REQUEST_BARCODE_TEXT = 1;
-    private static final int REQUEST_SAVE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +83,7 @@ public class InputActivity extends AppCompatActivity {
                         InputActivity.this,
                         ResultActivity.class);
                 resultIntent.putExtra("possibleNdcs", possibleNdcs);
-                startActivityForResult(resultIntent, REQUEST_SAVE);
+                startActivity(resultIntent);
             }
         });
     }
@@ -98,7 +96,7 @@ public class InputActivity extends AppCompatActivity {
                     InputActivity.this,
                     ResultActivity.class);
             resultIntent.putExtra("possibleNdcs", possibleNdcs);
-            startActivityForResult(resultIntent, REQUEST_SAVE);
+            startActivity(resultIntent);
         }
     }
 
