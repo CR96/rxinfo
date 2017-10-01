@@ -9,8 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.rxinfo.R;
@@ -32,6 +35,8 @@ public class InputActivity extends AppCompatActivity {
         setTitle(getString(R.string.input_activity_name));
 
         Button btnCamera = findViewById(R.id.btn_camera);
+        final Button btnGo = findViewById(R.id.btn_go);
+        final EditText txtNdc = findViewById(R.id.txt_ndc);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +54,35 @@ public class InputActivity extends AppCompatActivity {
 
                     startActivityForResult(scanBarcodeIntent, REQUEST_BARCODE_TEXT);
                 }
+            }
+        });
+
+        txtNdc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() != 10) {
+                    btnGo.setEnabled(false);
+                }else{
+                    btnGo.setEnabled(true);
+                }
+            }
+        });
+
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] possibleNdcs = NdcUtils.getPossibleNdcs(txtNdc.getText().toString());
+                Toast.makeText(InputActivity.this, Arrays.toString(possibleNdcs), Toast.LENGTH_LONG).show();
             }
         });
     }
