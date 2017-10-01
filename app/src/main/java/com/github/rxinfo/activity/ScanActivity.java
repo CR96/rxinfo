@@ -12,14 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.rxinfo.R;
+import com.github.rxinfo.util.NdcUtils;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-
-import util.NdcUtils;
 
 public class ScanActivity extends AppCompatActivity {
 

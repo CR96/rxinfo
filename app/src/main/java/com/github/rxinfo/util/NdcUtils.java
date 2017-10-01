@@ -1,4 +1,4 @@
-package util;
+package com.github.rxinfo.util;
 
 /**
  * Created by corey on 9/30/17.
