@@ -63,12 +63,14 @@
             style="@android:style/Widget.Material.EditText"
             android:layout_width="164dp"
             android:layout_height="48dp"
-            android:ems="10"
+            android:ems="12"
             android:hint="@string/input_ndc"
             android:inputType="number"
-            android:maxLength="10"
+            android:digits="0123456789-"
+            android:maxLength="12"
             android:selectAllOnFocus="false"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/btn_go"

@@ -22,6 +22,7 @@ import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
 
+    private static String upc;
     private static String ndc;
 
     @Override
@@ -79,13 +80,16 @@ public class ScanActivity extends AppCompatActivity {
 
                 if (barcodes.size() > 0) {
                     Barcode barcode = barcodes.valueAt(0); // Get the first one
-                    ndc = NdcUtils.upcToNdc(barcode.rawValue);
+
+                    upc = barcode.rawValue;
+                    ndc = NdcUtils.upcToNdc(upc);
+
                     txtBarcode.post(new Runnable() {
                         @Override
                         public void run() {
                             String text = String.format(
                                     getString(R.string.scanner_barcode_detected),
-                                    ndc
+                                    upc
                             );
 
                             txtBarcode.setText(text);
@@ -101,6 +105,8 @@ public class ScanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Return result
                 Bundle data = new Bundle();
+
+                data.putString("upc", upc);
                 data.putString("ndc", ndc);
                 Intent intent = new Intent();
                 intent.putExtras(data);

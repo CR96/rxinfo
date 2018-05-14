@@ -18,10 +18,16 @@ import android.widget.Toast;
 
 import com.github.rxinfo.R;
 
+import java.util.regex.Pattern;
+
 public class InputActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CAMERA = 1;
+
     private static final int REQUEST_BARCODE_TEXT = 1;
+
+    public static final int RESULT_RECEIVED_UPC = 100;
+    public static final int RESULT_RECEIVED_NDC = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,9 @@ public class InputActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() != 10) {
+
+                String ndcRegex = "\\d{4}-\\d{4}-\\d{2}|\\d{5}-\\d{3}-\\d{2}|\\d{5}-\\d{4}-\\d";
+                if (!Pattern.matches(ndcRegex, editable.toString())) {
                     btnGo.setEnabled(false);
                 } else {
                     btnGo.setEnabled(true);
@@ -82,7 +90,7 @@ public class InputActivity extends AppCompatActivity {
                 data.putString("ndc", txtNdc.getText().toString());
                 Intent intent = new Intent();
                 intent.putExtras(data);
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_RECEIVED_NDC, intent);
                 finish();
             }
         });
@@ -94,7 +102,7 @@ public class InputActivity extends AppCompatActivity {
             // Return result to MainActivity
             Intent intent = new Intent();
             intent.putExtras(data);
-            setResult(RESULT_OK, intent);
+            setResult(RESULT_RECEIVED_UPC, intent);
             finish();
         }
     }

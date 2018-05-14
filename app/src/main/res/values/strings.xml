@@ -10,7 +10,7 @@
     <string name="list_empty">When you add a medication, it will show up here.</string>
 
     <string name="input_ndc">Enter ten-digit NDC</string>
-    <string name="input_ndc_desc">Don\'t enter the dashes.</string>
+    <string name="input_ndc_desc">Include the dashes.\n\nValid formats:\n0123–4567–89 (4–4–2)\n01234–567–89 (5–3–2)\n01234–5678–9 (5–4–1)</string>
 
     <string name="input_separator">or</string>
 
@@ -18,7 +18,7 @@
     <string name="input_picture_desc">The app will request permission to access your camera.</string>
 
     <string name="scan_no_barcode_detected">No barcode detected</string>
-    <string name="scanner_barcode_detected">NDC: %1$s</string>
+    <string name="scanner_barcode_detected">UPC: %1$s</string>
 
     <string name="result_not_found">No results.</string>
     <string name="go">Get Info</string>

@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_DRUG_ITEM = 1;
 
     private final ArrayList<Drug> drugs = new ArrayList<>();
+
     private DrugAdapter drugAdapter;
 
     private TextView txtEmpty;
@@ -84,55 +86,153 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_DRUG_ITEM && resultCode == Activity.RESULT_OK) {
-            String[] possibleNdcs = NdcUtils.getPossibleNdcs(data.getStringExtra("ndc"));
-            ArrayList<String> possibleNdcsList = new ArrayList<>(Arrays.asList(possibleNdcs));
-            getDrugInfo(possibleNdcsList);
+        if (requestCode == REQUEST_DRUG_ITEM) {
+            txtEmpty.setVisibility(View.INVISIBLE);
+            progress.setVisibility(View.VISIBLE);
+
+            final RequestQueue queue = Volley.newRequestQueue(this);
+
+            if (resultCode == InputActivity.RESULT_RECEIVED_UPC) {
+                final String upc = data.getStringExtra("upc");
+
+                // Try matching by UPC first
+
+                // Add leading zero to UPC to match openFDA formatting
+                String formattedUpc = "0" + upc;
+
+                getDrugInfoByUpc(queue, formattedUpc, new VolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        showResult(result);
+                    }
+
+                    @Override
+                    public void onError() {
+                        // UPC lookup failed, try by possible NDCs
+
+                        // UPC is converted to unformatted NDC, then possible formatted NDCs are determined
+                        final List<String> possibleNdcs = new ArrayList<>
+                                (Arrays.asList(NdcUtils.getPossibleNdcs(NdcUtils.upcToNdc(upc))));
+
+                        getDrugInfoByNdc(queue, possibleNdcs, new VolleyCallback() {
+
+                            @Override
+                            public void onSuccess(String result) {
+                                showResult(result);
+                            }
+
+                            @Override
+                            public void onError() {
+                                if (possibleNdcs.size() == 1) {
+                                    if (drugs.size() == 0) {
+                                        txtEmpty.setVisibility(View.VISIBLE);
+                                    }
+                                    progress.setVisibility(View.GONE);
+                                    Toast.makeText(
+                                            MainActivity.this,
+                                            getString(R.string.result_not_found),
+                                            Toast.LENGTH_LONG).show();
+                                } else {
+                                    possibleNdcs.remove(0);
+                                    getDrugInfoByNdc(queue, possibleNdcs, this);
+                                }
+                            }
+                        });
+                    }
+                });
+            } else if (resultCode == InputActivity.RESULT_RECEIVED_NDC) {
+                // NDC doesn't require processing, pass NDC directly into getDrugInfoByNdc()
+                // as an ArrayList with one entry.
+                final String ndc = data.getStringExtra("ndc");
+                getDrugInfoByNdc(queue, new ArrayList<>(Collections.singletonList(ndc)), new VolleyCallback() {
+
+                    @Override
+                    public void onSuccess(String result) {
+                        showResult(result);
+                    }
+
+                    @Override
+                    public void onError() {
+                        if (drugs.size() == 0) {
+                            txtEmpty.setVisibility(View.VISIBLE);
+                        }
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(
+                                MainActivity.this,
+                                getString(R.string.result_not_found),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
         }
     }
 
-    private void getDrugInfo(final List<String> possibleNdcs) {
-        txtEmpty.setVisibility(View.INVISIBLE);
-        progress.setVisibility(View.VISIBLE);
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.fda.gov/drug/label.json?search=\""
-                + possibleNdcs.get(0) + "\"";
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Gson gson = new GsonBuilder()
-                                .create();
-                        Drug drug = gson
-                                .fromJson(response.toString(), Drug.class);
-                        drugs.add(drug);
-                        drugAdapter.notifyDataSetChanged();
-                        progress.setVisibility(View.GONE);
-                    }
-                }, new Response.ErrorListener() {
+    private void showResult(String json) {
+        Gson gson = new GsonBuilder()
+                .create();
+        Drug drug = gson
+                .fromJson(json, Drug.class);
+        drugs.add(drug);
+        drugAdapter.notifyDataSetChanged();
+        progress.setVisibility(View.GONE);
+    }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (possibleNdcs.size() == 1) {
-                    if (drugs.size() == 0) {
-                        txtEmpty.setVisibility(View.VISIBLE);
-                    }
-                    progress.setVisibility(View.GONE);
-                    Toast.makeText(
-                            MainActivity.this,
-                            getString(R.string.result_not_found),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    possibleNdcs.remove(0);
-                    getDrugInfo(possibleNdcs);
+    private interface VolleyCallback {
+        void onSuccess(String result);
+        void onError();
+    }
+
+    private void getDrugInfoByUpc(
+            RequestQueue queue, String upc, final VolleyCallback callback) {
+
+        final String upcUrl = "https://api.fda.gov/drug/label.json?search=upc:\""
+                + upc + "\"";
+
+        final JsonObjectRequest upcRequest = new JsonObjectRequest(
+            Request.Method.GET,
+            upcUrl,
+            null,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    callback.onSuccess(response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    callback.onError();
                 }
             }
-        }
         );
-        queue.add(jsonObjectRequest);
+
+        queue.add(upcRequest);
+    }
+
+    private void getDrugInfoByNdc(
+            RequestQueue queue, List<String> possibleNdcs, final VolleyCallback callback) {
+
+        final String ndcUrl = "https://api.fda.gov/drug/label.json?search=package_ndc:\""
+                + possibleNdcs.get(0) + "\"";
+
+        final JsonObjectRequest ndcRequest = new JsonObjectRequest(
+            Request.Method.GET,
+            ndcUrl,
+            null,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    callback.onSuccess(response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    callback.onError();
+                }
+            }
+        );
+
+        queue.add(ndcRequest);
     }
 
     @Override
