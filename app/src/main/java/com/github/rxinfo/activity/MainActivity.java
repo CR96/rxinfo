@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
     private void getDrugInfoByUpc(
             RequestQueue queue, String upc, final VolleyCallback callback) {
 
-        final String upcUrl = "https://api.fda.gov/drug/label.json?search=upc:\""
+        final String upcUrl = "https://api.fda.gov/drug/label.json?search=openfda.upc:\""
                 + upc + "\"";
 
         final JsonObjectRequest upcRequest = new JsonObjectRequest(
@@ -211,7 +211,8 @@ public class MainActivity extends AppCompatActivity {
     private void getDrugInfoByNdc(
             RequestQueue queue, List<String> possibleNdcs, final VolleyCallback callback) {
 
-        final String ndcUrl = "https://api.fda.gov/drug/label.json?search=package_ndc:\""
+        final String ndcUrl = "https://api.fda.gov/drug/label.json?search=openfda.package_ndc:\""
+
                 + possibleNdcs.get(0) + "\"";
 
         final JsonObjectRequest ndcRequest = new JsonObjectRequest(
