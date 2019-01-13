@@ -5,6 +5,7 @@
     <!-- Activity Names -->
     <string name="input_activity_name">Add a medication</string>
     <string name="scan_activity_name">Scan a barcode</string>
+    <string name="top_drugs_activity_name">Top 200 Drugs</string>
 
     <!-- UI Labels -->
     <string name="list_empty">When you add a medication, it will show up here.</string>

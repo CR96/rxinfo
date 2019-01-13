@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView lst_meds = findViewById(R.id.lst_meds);
         lst_meds.setLayoutManager(layoutManager);
         lst_meds.setAdapter(drugAdapter);
+
+        Button btnTopDrugs = findViewById(R.id.btn_top_drugs);
+
+        btnTopDrugs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, TopDrugActivity.class);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton btnAdd = findViewById(R.id.btn_add);
 

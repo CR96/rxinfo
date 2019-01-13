@@ -31,6 +31,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.TopDrugActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.InputActivity"
             android:screenOrientation="portrait" />
         <activity
